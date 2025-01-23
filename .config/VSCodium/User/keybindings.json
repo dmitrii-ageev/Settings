@@ -1,0 +1,97 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "alt+t",
+        "command": "-gl.generateTests",
+        "when": "config.gitlab.duoChat.enabled && editorHasSelection && gitlab:chatAvailable && gitlab:chatAvailableForProject"
+    },
+    {
+        "key": "alt+t",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
+    },
+    {
+        "key": "alt+c",
+        "command": "editor.action.clipboardCopyAction"
+    },
+    {
+        "key": "alt+v",
+        "command": "editor.action.clipboardPasteAction"
+    },
+    {
+        "key": "alt+a",
+        "command": "editor.action.selectAll"
+    },
+    {
+        "key": "alt+a",
+        "command": "notebook.cell.output.selectAll",
+        "when": "notebookEditorFocused && notebookOutputFocused"
+    },
+    {
+        "key": "alt+a",
+        "command": "list.selectAll",
+        "when": "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused"
+    },
+    {
+        "key": "alt+x",
+        "command": "editor.action.clipboardCutAction"
+    },
+    {
+        "key": "alt+x",
+        "command": "filesExplorer.cut",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "alt+q",
+        "command": "workbench.action.closeAllEditors"
+    },
+    {
+        "key": "alt+w",
+        "command": "workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "alt+e",
+        "command": "workbench.action.closeOtherEditors"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-extension.vim_ctrl+p",
+        "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-workbench.action.quickOpenNavigateNextInFilePicker",
+        "when": "inFilesPicker && inQuickOpen"
+    },
+    {
+        "key": "shift+alt+p",
+        "command": "workbench.action.showCommands"
+    },
+    {
+        "key": "alt+c",
+        "command": "workbench.action.terminal.copySelection",
+        "when": "terminalTextSelectedInFocused || terminalFocus && terminalHasBeenCreated && terminalTextSelected || terminalFocus && terminalProcessSupported && terminalTextSelected || terminalFocus && terminalTextSelected && terminalTextSelectedInFocused || terminalHasBeenCreated && terminalTextSelected && terminalTextSelectedInFocused || terminalProcessSupported && terminalTextSelected && terminalTextSelectedInFocused"
+    },
+    {
+        "key": "alt+v",
+        "command": "workbench.action.terminal.paste",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+x",
+        "command": "workbench.action.terminal.copyAndClearSelection"
+    },
+    {
+        "key": "alt+enter",
+        "command": "scm.acceptInput",
+        "when": "scmRepository"
+    },
+    {
+        "key": "alt+s",
+        "command": "git.sync"
+    }
+]

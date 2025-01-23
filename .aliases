@@ -1,0 +1,86 @@
+# IDE
+alias vi='nvim'
+alias vim='nvim'
+
+# SHELL
+alias a='bm -l'
+alias gr='grep'
+alias ls='ls --color'
+alias lll='ls -l'
+alias edit-aliases='vim ~/.aliases'
+
+# GIT
+alias gt='git tag'
+alias gtsm='gts -m'
+alias post='gp -u origin HEAD && gp --tags'
+alias gpt='gp --tags'
+alias gs='git status'
+alias gtd='gt -d'
+alias gpt='gp --tags'
+
+#GPG
+alias encrypt='gpg -e -r ya@hiki.su -r dmitrii@opsworks.ru -r dmitrii@cipher.su -r dmitrii@soft-engineering.com'
+
+# SSH
+alias ssh='ssh -A'
+
+# Terraform
+alias t='terraform'
+alias tg='terragrunt'
+alias init='t init'
+alias reconfigure='init -reconfigure'
+alias migrate-state='init -migrate-state'
+alias refresh='t refresh'
+alias plan='t plan -out plan.out'
+alias apply='t apply plan.out'
+alias deploy='t apply -target'
+alias destroy='t destroy'
+alias knock='destroy -target'
+alias update='refresh -target'
+alias purge='destroy -auto-approve'
+alias target='plan -target'
+alias upgrade='target'
+alias gogogo='t apply -auto-approve'
+alias ggg='gogogo'
+alias state='t state'
+alias show='t show'
+alias list='state list'
+alias format='t fmt'
+alias validate='t validate'
+alias taint='t taint'
+alias untaint='t untaint'
+alias docs='terraform-docs markdown --output-file README.md .'
+alias lint='tflint'
+alias get='t get'
+alias version='t version'
+alias import='t import'
+alias run='tg run-all'
+alias console='t console'
+alias output='t output'
+alias unlock='t force-unlock -force'
+
+# Kubernetes
+alias ks='k -n kube-system'
+alias dev='k --context dev -n dev'
+alias idev='k --context idev -n dev'
+alias stage='k --context stage -n stg'
+alias testing='k --context qa'
+alias ops='k --context ops'
+alias prod='k --context prod -n prod'
+alias dr='k --context dr -n prod'
+alias bench='k --context benchmark'
+alias ka='k apply -f'
+alias kd='k delete -f'
+alias kgp='k get pod'
+alias kgpw='kgp -w'
+alias kgd='k get deploy'
+alias kgdw='kgd -w'
+alias kgs='k get secrets'
+alias kgcm='k get configmaps'
+alias plogs='stern --context prod -n prod --tail 20'
+alias slogs='stern --context stage -n stg --tail 20'
+alias dlogs='stern --context dev -n dev --tail 20'
+
+# Auxiliary
+alias tf='thefuck'
+

@@ -1,0 +1,81 @@
+# Supress startup message
+startup_message off
+
+# GNU Screen - main configuration file
+defscrollback 10000
+
+# enable UTF8
+defutf8 on
+
+# don't kill session if connection drops
+autodetach on
+
+# Allow bold colors - necessary for some reason
+attrcolor b ".I"
+
+# Tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo * Z0=\E[?3h:Z1=\E[?3l
+
+# Enables use of shift-PgUp and shift-PgDn
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
+
+# Erase background with current bg color
+defbce "on"
+
+# Enable 256 color term
+term xterm-256color
+
+# New mail notification
+#backtick 101 30 15 $HOME/bin/mailstatus.sh
+
+hardstatus alwayslastline
+
+# change command character from ctrl-a to ctrl-b (emacs users may want this)
+#escape ^Bq
+
+# Hide hardstatus: ctrl-a f
+bind f eval "hardstatus ignore"
+
+# Show hardstatus: ctrl-a F
+bind F eval "hardstatus alwayslastline"
+
+# necessary for window autorenaming magic. Set the first character in the quotes to whatever your bash prompt ends in.
+shelltitle '>|bash'
+
+# mark zombies
+#defzombie " !"
+
+## Normal hardstatus explained
+##
+## %{bw} color: white on blue
+## [
+## %{Y} color: bright yellow
+## %h xterm title string
+## %011= pad out a total of 11 characters
+## %{-} pop last color change
+## ]
+## +01= pad another space, to keep later truncation from eating the “]”
+## %{Kw} color: white on grey (“bright black”)
+##
+## %-w lower half of window list
+## %50L> Mark this spot for truncating at 50% width
+## %{yk} color: black on yellow
+## %{Y.} color: Bright yellow background
+## %n current window number
+## %{-} pop last color change
+##
+## %t current window title
+## %{-} pop last color change
+## %+w upper half of window list
+##
+## %-012= pad all the way out to ( window width – 12 )
+## %{y} color: yellow
+##
+## %m/%d %c month/day and time ( as XX/XX XX:XX )
+#hardstatus string “%{bw}[%{Y}%h%011=%{-}]%+01=%{Kw} %-w%50L>%{yk}%{Y.}%n%{-} %t%{-}%+w %-012=%{y} %m/%d %c”
+
+# Very nice tabbed colored hardstatus line
+#hardstatus alwayslastline '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KY} %H %{KY}%{KW}| %D %M %d %Y %{= RW} %C%A %{-}'
+hardstatus alwayslastline '%{= kw} %-w%{= kr}[%{= kW}%n %t%{= kr}]%{= kw}%+w %-= %{kY} %H %{kY}%{kW}| %D %M %d %Y %{= RW} %C%A %{-}'
+#hardstatus alwayslastline '%{= bw} %-w%{= br}[%{= bW}%n %t%{= br}]%{= bw}%+w %-= %{bY} %H %{bY}%{bW}| %D %M %d %Y %{= RW} %C%A %{-}'

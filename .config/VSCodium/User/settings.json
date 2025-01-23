@@ -1,0 +1,35 @@
+{
+    "extensions.autoCheckUpdates": false,
+    "extensions.autoUpdate": false,
+    "update.mode": "none",
+    "workbench.startupEditor": "none",
+    "editor.fontFamily": "'VictorMono Nerd Font', 'Droid Sans Mono', 'monospace', monospace",
+    "files.autoSave": "afterDelay",
+    "editor.cursorStyle": "block",
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.defaultColorDecorators": true,
+    "editor.fontLigatures": true,
+    "terminal.integrated.cursorBlinking": true,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#cc0000",
+        "editorCursor.background": "#ffffff",
+        "terminalCursor.foreground": "#cc0000",
+        "terminalCursor.background": "#ffffff",
+        "editorMultiCursor.primary.foreground": "#ffaaaa",
+        "editorMultiCursor.secondary.foreground": "#ffffff"
+        // "editorMultiCursor.primary.background": "#ff0000",
+        // "editorMultiCursor.secondary.background": "#00ff2a",
+    },
+    "editor.fontSize": 16,
+    "redhat.telemetry.enabled": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "files.defaultLanguage": "C",
+    "clangd.arguments": [
+        "--enable-config"
+    ],
+    "git.autofetch": true,
+    "editor.tabCompletion": "on",
+    "editor.indentSize": "tabSize",
+    "terminal.integrated.inheritEnv": false
+}
