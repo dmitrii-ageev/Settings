@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+  echo "Please provide a file name to restore environment from!"
+  exit 1
+else
+  environment="$1"
+  name=""
+  if [ -n "$2" ]; then
+    name="-n $2"
+  fi
+fi
+
+extension=$(echo -n $environment | tail -c 2)
+if [ "$extension" == "gz" ]; then
+  tar -C /tmp -xvzf "$environment" && \
+  environment="/tmp/$(tar tvzf $environment | awk '{ print $6 }')"
+fi
+conda env create $name -f "$environment" 

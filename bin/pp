@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -n "$2" ]; then
+ echo $(p find $1 | head -1)/$2
+else
+ echo $(p find $1 | head -1)
+fi

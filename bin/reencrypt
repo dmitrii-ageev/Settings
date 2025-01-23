@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+	echo "Please profile a filename as an argument!"
+	exit 1
+elif [ ! -e "$1" ]; then
+	echo "File name does not exist!"
+	exit 1
+fi
+
+if [ -n "$2" ]; then
+	DECRYPT_KEY="--default-key $2"
+fi
+
+TEMPDIR="${TEMPDIR:-/tmp}"
+filename="$1"
+tempfile="$TEMPDIR/$(head -c 10 /dev/random | base64 | head -c 12 | xxd -l12 -ps30)"
+
+gpg -q -d $DECRYPT_KEY -o "$tempfile" "$filename" || ( echo "Cannot decrypt file \"$filename\"!"; /bin/rm "$tempfile"; exit 1)
+
+
+KEY=$(cat "$HOME/.password-store/.gpg-id" | while read line; do echo -n " --recipient $line"; done) || (echo "Cannot find default GPG key"; /bin/rm "$tempfile"; exit 1)
+
+gpg -q -e $KEY -o "$filename" --yes "$tempfile"
+/bin/rm "$tempfile" 

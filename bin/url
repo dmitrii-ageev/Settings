@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -i -e url: -e http:// -e https:// | head -1 | sed 's/url:\s*//' | sed 's/\s*//' | trail | xcopy

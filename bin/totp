@@ -1,0 +1,2 @@
+#!/bin/bash
+oathtool -b --totp $(grep ^totp: | cut -d: -f2) | trail | xcopy

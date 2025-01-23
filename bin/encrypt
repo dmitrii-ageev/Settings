@@ -1,0 +1,9 @@
+#!/bin/bash
+
+KEY=$(cat "$HOME/.password-store/.gpg-id" | while read line; do echo -n " --recipient $line"; done) || (echo "Cannot find default GPG key"; exit 1)
+
+
+for filename in $@; do
+	output=$(echo $filename | sed 's/\.decrypted$//')
+	gpg -q -e $KEY -o "${output}.gpg" "$filename" && /bin/rm "$filename"
+done

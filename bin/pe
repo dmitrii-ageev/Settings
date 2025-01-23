@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -n "$2" ]; then
+  p edit $(p find $1 | head -1)/$2
+else
+  p edit $(p find $1 | head -1)
+fi
+

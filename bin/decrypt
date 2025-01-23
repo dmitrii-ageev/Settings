@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for filename in $@; do
+	output=$(echo $filename | sed 's/\.gpg$//')
+	if [ "$filename" == "$output" ]; then
+		output="${output}.decrypted" 
+	fi
+	gpg -q -d -o "$output" "$filename" && /bin/rm "$filename"
+done

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+for environment in $(conda env list -q | grep -v -e \# -e '^ ' -e base | cut -d' ' -f1); do
+    conda env export -n $environment -f /tmp/conda-$environment.backup.yaml && \
+    tar -C /tmp --warning=none --remove-files -cvzf $HOME/Backup/$(date +%F)-conda-$environment.backup.tgz conda-$environment.backup.yaml
+done

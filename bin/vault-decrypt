@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ -n "$1" ]; then
+  ansible-vault decrypt --vault-password-file machine-key $@
+else
+  ansible-vault decrypt --vault-password-file machine-key *yml
+fi

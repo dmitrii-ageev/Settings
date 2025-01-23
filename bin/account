@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+grep -i -e login: -e account: | head -1 | sed 's/login://' | sed 's/account://' | sed 's/\s*//' | trail | xcopy
+

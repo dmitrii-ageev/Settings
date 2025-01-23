@@ -1,0 +1,27 @@
+#!/bin/bash
+case "$1" in
+	encrypt)
+		command=encrypt
+		shift
+		;;
+	decrypt)
+		command=decrypt
+		shift
+		;;
+	view)
+		command=view
+		shift
+		;;
+	*)
+		command=edit
+		;;
+esac
+
+if [ -f $1 ]; then
+  ansible-vault $command --vault-password-file machine-key $1
+elif [ -f $1.yml ]; then
+  ansible-vault $command --vault-password-file machine-key $1.yml
+else
+  ansible-vault create --vault-password-file machine-key $1
+fi
+

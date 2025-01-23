@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -i -e email: -e mail: -e @soft-engineering.com -e @ya.ru -e @yandex.ru -e @hiki.su -e @nimda.su -e @opsworks.ru -e @toyota -e @opslabs | head -1 | sed 's/^.*://' | sed 's/\s*//' | trail | xcopy
