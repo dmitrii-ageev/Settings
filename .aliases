@@ -1,28 +1,32 @@
-# IDE
-alias vi='nvim'
-alias vim='nvim'
-
 # SHELL
 alias a='bm -l'
 alias gr='grep'
 alias ls='ls --color'
+alias ll='ls -l'
 alias lll='ls -l'
 alias edit-aliases='vim ~/.aliases'
 
+# IDE
+alias vim='/usr/bin/vim'
+alias vi='vim'
+alias vscode='open ~/Applications/Visual\ Studio\ Code.app'
+
 # GIT
+alias gs='git status'
 alias gt='git tag'
 alias gtsm='gts -m'
-alias post='gp -u origin HEAD && gp --tags'
-alias gpt='gp --tags'
-alias gs='git status'
 alias gtd='gt -d'
+alias post='gp -u origin HEAD && gp --tags'
 alias gpt='gp --tags'
 
 #GPG
-alias encrypt='gpg -e -r ya@hiki.su -r dmitrii@opsworks.ru -r dmitrii@cipher.su -r dmitrii@soft-engineering.com'
+alias encrypt='gpg -e -r ya@hiki.su -r dmitrii@opsworks.ru -r dmitrii@soft-engineering.com'
 
 # SSH
 alias ssh='ssh -A'
+
+# OpenLens
+alias lens='open /Applications/OpenLens.app'
 
 # Terraform
 alias t='terraform'
@@ -75,12 +79,11 @@ alias kgp='k get pod'
 alias kgpw='kgp -w'
 alias kgd='k get deploy'
 alias kgdw='kgd -w'
-alias kgs='k get secrets'
-alias kgcm='k get configmaps'
+alias kgsa='k get sa'
+alias kex='k exec -it'
 alias plogs='stern --context prod -n prod --tail 20'
 alias slogs='stern --context stage -n stg --tail 20'
 alias dlogs='stern --context dev -n dev --tail 20'
 
 # Auxiliary
 alias tf='thefuck'
-
