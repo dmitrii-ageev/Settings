@@ -8,6 +8,7 @@ packer
 pick-instance-type_linux_amd64
 pulumi
 pulumi-v3.133.0-linux-x64.tar.gz
+sops
 terraform
 terraform-1.0.11
 terraform-1.1.4

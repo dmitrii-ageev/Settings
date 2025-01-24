@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+spotdl --overwrite skip --format mp3 --playlist-numbering --output "{list-position}. {artist} - {title}" "$@"

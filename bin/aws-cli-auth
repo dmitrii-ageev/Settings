@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+MFA_TOKEN=${MFA_TOKEN:-"arn:aws:iam::451109362687:mfa/Dmitrii-NewMFA"}
+
+message() {
+    echo -e "\033[0;32m$@\033[0m"
+}
+
+error() {
+    echo -e "\033[0;31mERROR: $@\033[0m"
+}
+
+if [ -z "$1" ]; then
+  MFA_CODE=$(pass aws/production | grep totp: | cut -d: -f2 | oathtool --totp -b - | head -1 | tr -d '\n')
+  if [ -z "$MFA_CODE" ]; then
+    read -p "Please enter a token code: " MFA_CODE
+    test -z "${MFA_CODE}" && error "No token code provided!" && return 255
+  fi
+else
+  MFA_CODE=$1
+fi
+
+json=$(aws sts get-session-token --serial-number ${MFA_TOKEN} --token-code ${MFA_CODE})
+test -z "$json" && error "Failed to get session token!" && return 255
+
+AWS_ACCESS_KEY_ID=$(echo -n $json | jq -r .Credentials.AccessKeyId)
+test -z "$AWS_ACCESS_KEY_ID" && error "Failed to get AWS Access Key ID!" && return 255
+export AWS_ACCESS_KEY_ID
+
+AWS_SECRET_ACCESS_KEY=$(echo -n $json | jq -r .Credentials.SecretAccessKey)
+test -z "$AWS_SECRET_ACCESS_KEY" && error "Failed to get AWS Secret Access Key!" && return 255
+export AWS_SECRET_ACCESS_KEY
+
+AWS_SESSION_TOKEN=$(echo -n $json | jq -r .Credentials.SessionToken)
+test -z "$AWS_SESSION_TOKEN" && error "Failed to get AWS Session Token!" && return 255
+export AWS_SESSION_TOKEN

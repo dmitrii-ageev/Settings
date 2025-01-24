@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+/bin/rm -fr .terraform .terragrunt-cache &>/dev/null
+/bin/rm terraform.tfstate terraform.tfstate.backup .terraform.lock.hcl plan.out &>/dev/null

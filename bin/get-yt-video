@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+yt-dlp \
+   --audio-format mp3 \
+   -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+   "$1" 

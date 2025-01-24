@@ -1,0 +1,5 @@
+#!/usr/bin/eval bash
+
+for variable in $(env | cut -d= -f1 | grep ^AWS); do
+  unset ${variable}
+done
