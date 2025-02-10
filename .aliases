@@ -85,5 +85,8 @@ alias plogs='stern --context prod -n prod --tail 20'
 alias slogs='stern --context stage -n stg --tail 20'
 alias dlogs='stern --context dev -n dev --tail 20'
 
+# HuggingFace
+alias hf='huggingface-cli'
+
 # Auxiliary
 alias tf='thefuck'
