@@ -1,3 +1,14 @@
+#!/usr/bin/env bash
+
+# Defind a funciton set in here
+load() {
+  # Load all the provided files
+  for file in $@; do
+    [[ -r "$file" ]] && source $file
+  done
+}
+
+
 # Path to your oh-my-bash installation.
 export OSH=$HOME/.oh-my-bash
 
@@ -41,9 +52,21 @@ OSH_THEME="agnoster"
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS='yyyy-mm-dd'
+
+# To disable the uses of "sudo" by oh-my-bash, please set "false" to
+# this variable.  The default behavior for the empty value is "true".
+OMB_USE_SUDO=true
+
+# To enable/disable display of Python virtualenv and condaenv
+OMB_PROMPT_SHOW_PYTHON_VENV=true  # enable
 
 # Would you like to use another custom folder than $OSH/custom?
 # OSH_CUSTOM=/path/to/new-custom-folder
+
+# Uncomment the following line if you do not want OMB to overwrite the existing
+# aliases by the default OMB aliases defined in lib/*.sh
+# OMB_DEFAULT_ALIASES="check"
 
 # Which completions would you like to load? (completions can be found in ~/.oh-my-bash/completions/*)
 # Custom completions may be added to ~/.oh-my-bash/custom/completions/
@@ -111,20 +134,19 @@ source $OSH/oh-my-bash.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_GB.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+export EDITOR='nvim'
+
+# Preferred pager for local and remote sessions
+export PAGER='more --plain'
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="~/.ssh/workstation.pem"
 
 # Set personal aliases, overriding those provided by oh-my-bash libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-bash
@@ -134,12 +156,8 @@ source $OSH/oh-my-bash.sh
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
-[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
-[[ -f ~/.aliases ]] && source ~/.aliases
-
-# Set editor
-export EDITOR=nvim
-export PAGER=more
+load "${HOME}/.bash_aliases"
+load "${HOME}/.aliases"
 
 # Set the path
 export PATH="${PATH}:${HOME}/bin"
@@ -175,11 +193,8 @@ set +o noclobber
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+  load '/etc/bash_completion'
+  load '/usr/share/bash-completion/bash_completion'
 fi
 
 # >>> conda initialize >>>
@@ -188,31 +203,26 @@ __conda_setup="$('/home/user/mambaforge/bin/conda' 'shell.bash' 'hook' 2> /dev/n
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/user/mambaforge/etc/profile.d/conda.sh" ]; then
-        . "/home/user/mambaforge/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/user/mambaforge/bin:$PATH"
-    fi
+    load "/home/user/mambaforge/etc/profile.d/conda.sh"
+    export PATH="/home/user/mambaforge/bin:${PATH}"
 fi
 unset __conda_setup
 
-if [ -f "/home/user/mambaforge/etc/profile.d/mamba.sh" ]; then
-    . "/home/user/mambaforge/etc/profile.d/mamba.sh"
-fi
+load '/home/user/mambaforge/etc/profile.d/mamba.sh'
 # <<< conda initialize <<<
 
 # >>> Yandex cloud >>>
 # The next line updates PATH for Yandex Cloud CLI.
-if [ -f '/home/user/yandex-cloud/path.bash.inc' ]; then source '/home/user/yandex-cloud/path.bash.inc'; fi
+load '/home/user/yandex-cloud/path.bash.inc'
 
 # The next line enables shell command completion for yc.
-if [ -f '/home/user/yandex-cloud/completion.bash.inc' ]; then source '/home/user/yandex-cloud/completion.bash.inc'; fi
+load '/home/user/yandex-cloud/completion.bash.inc'
 # <<< Yandex cloud <<<
 
 # >>> Pulumi >>>
 export PATH="${PATH}:${HOME}/bin/pulumi"
-if [ -f '/home/user/bin/pulumi/completion.bash.inc' ]; then source '/home/user/bin/pulumi/completion.bash.inc'; fi
+load '/home/user/bin/pulumi/completion.bash.inc'
 # <<< Pulumi <<<
-#
+
 # Set terminal colours
-eval $(dircolors ~/.oh-my-bash/dircolors)
+[[ -r ~/.dir_colors ]] && eval $(dircolors ~/.dir_colors)
