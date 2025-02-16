@@ -10,7 +10,7 @@ load() {
 
 
 # Path to your oh-my-bash installation.
-export OSH=$HOME/.oh-my-bash
+export OSH=${HOME}/.oh-my-bash
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
@@ -146,7 +146,7 @@ export PAGER='more --plain'
 export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/workstation.pem"
+export SSH_KEY_PATH="${HOME}/.ssh/workstation.pem"
 
 # Set personal aliases, overriding those provided by oh-my-bash libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-bash
@@ -199,29 +199,34 @@ fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/user/mambaforge/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ -d "${HOME}/condaforge" ]; then
+    __conda_dir="${HOME}/condaforge"
+elif [ -d "${HOME}/mambaforge" ]; then
+    __conda_dir="${HOME}/mambaforge"
+else
+    __conda_dir="${HOME}/miniforge3"
+fi
+
+__conda_setup="$(${__conda_dir}/bin/conda 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    load "/home/user/mambaforge/etc/profile.d/conda.sh"
-    export PATH="/home/user/mambaforge/bin:${PATH}"
+    load "${__conda_dir}/etc/profile.d/conda.sh" && export PATH="${__conda_dir}/bin:${PATH}"
 fi
+unset __conda_dir
 unset __conda_setup
-
-load '/home/user/mambaforge/etc/profile.d/mamba.sh'
 # <<< conda initialize <<<
 
 # >>> Yandex cloud >>>
 # The next line updates PATH for Yandex Cloud CLI.
-load '/home/user/yandex-cloud/path.bash.inc'
+load "${HOME}/yandex-cloud/path.bash.inc"
 
 # The next line enables shell command completion for yc.
-load '/home/user/yandex-cloud/completion.bash.inc'
+load "${HOME}/yandex-cloud/completion.bash.inc"
 # <<< Yandex cloud <<<
 
 # >>> Pulumi >>>
-export PATH="${PATH}:${HOME}/bin/pulumi"
-load '/home/user/bin/pulumi/completion.bash.inc'
+load "${HOME}/bin/pulumi/completion.bash.inc" && export PATH="${PATH}:${HOME}/bin/pulumi"
 # <<< Pulumi <<<
 
 # Set terminal colours
