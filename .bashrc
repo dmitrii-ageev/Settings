@@ -8,15 +8,20 @@ load() {
   done
 }
 
+# Get the Operating System's name
+export OS=$(uname -s)
 
 # Path to your oh-my-bash installation.
 export OSH=${HOME}/.oh-my-bash
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
+[[ "${TERM_PROGRAM}" == "vscode" ]] && export OSH_THEME=${OSH_THEME:-"demula"}
+[[ "$OS" == "Darwin" ]] && export OSH_THEME=${OSH_THEME:-"cupcake"}
+
 #OSH_THEME="brainy"
-OSH_THEME="agnoster"
 #OSH_THEME="powerline"
+OSH_THEME=${OSH_THEME:-"agnoster"}
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -140,7 +145,8 @@ export LANG=en_GB.UTF-8
 export EDITOR='nvim'
 
 # Preferred pager for local and remote sessions
-export PAGER='more --plain'
+[[ "$OS" == "Darwin" ]] && export PAGER='more -r'
+[[ "$OS" == "Linux" ]] && export PAGER='more --plain'
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
@@ -230,4 +236,8 @@ load "${HOME}/bin/pulumi/completion.bash.inc" && export PATH="${PATH}:${HOME}/bi
 # <<< Pulumi <<<
 
 # Set terminal colours
-[[ -r ~/.dir_colors ]] && eval $(dircolors ~/.dir_colors)
+[[ -r ~/.dir_colors ]] && [[ "$OS" == "Darwin" ]] && eval $(gdircolors ~/.dir_colors)
+[[ -r ~/.dir_colors ]] && [[ "$OS" == "Linux" ]] && eval $(dircolors ~/.dir_colors)
+
+# Exit with the zero code
+true
