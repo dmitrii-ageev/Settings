@@ -154,16 +154,8 @@ export ARCHFLAGS="-arch x86_64"
 # ssh
 export SSH_KEY_PATH="${HOME}/.ssh/workstation.pem"
 
-# Set personal aliases, overriding those provided by oh-my-bash libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-bash
-# users are encouraged to define aliases within the OSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias bashconfig="mate ~/.bashrc"
-# alias ohmybash="mate ~/.oh-my-bash"
-load "${HOME}/.bash_aliases"
-load "${HOME}/.aliases"
+# Set Terminal-related settings
+export GPG_TTY=$(tty)
 
 # Set the path
 export PATH="${PATH}:${HOME}/bin"
@@ -203,6 +195,11 @@ if ! shopt -oq posix; then
   load '/usr/share/bash-completion/bash_completion'
 fi
 
+
+#
+# Application settings
+#
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 if [ -d "${HOME}/condaforge" ]; then
@@ -219,9 +216,10 @@ if [ $? -eq 0 ]; then
 else
     load "${__conda_dir}/etc/profile.d/conda.sh" && export PATH="${__conda_dir}/bin:${PATH}"
 fi
-unset __conda_dir
+# unset __conda_dir - we need this variable to define a path to GoLang
 unset __conda_setup
 # <<< conda initialize <<<
+
 
 # >>> Yandex cloud >>>
 # The next line updates PATH for Yandex Cloud CLI.
@@ -231,9 +229,83 @@ load "${HOME}/yandex-cloud/path.bash.inc"
 load "${HOME}/yandex-cloud/completion.bash.inc"
 # <<< Yandex cloud <<<
 
+
 # >>> Pulumi >>>
 load "${HOME}/bin/pulumi/completion.bash.inc" && export PATH="${PATH}:${HOME}/bin/pulumi"
 # <<< Pulumi <<<
+
+
+##
+## Autocompletion
+##
+load /opt/homebrew/share/bash-completion/bash_completion
+load /opt/homebrew/etc/profile.d/bash_completion.sh
+#autoload -U +X bashcompinit && bashcompinit
+
+
+
+##
+## Kubernetes Completions
+##
+if which -s kubectl; then
+    export KUBECTL_CONTEXT=${KUBECTL_CONTEXT:-""}
+    export KUBECTL_NAMESPACE=${KUBECTL_NAMESPACE:-"default"}
+    source <(kubectl completion bash)
+    alias kubectl='kubectl --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
+    alias k=kubectl
+    complete -o default -F __start_kubectl k
+    alias ks='kubectl -n kube-system'
+    complete -o default -F __start_kubectl ks
+fi
+
+
+##
+## Helm Completions
+##
+which -s helm && source <(helm completion bash)
+
+
+#
+# STERN settings
+#
+if which -s stern; then
+    source <(stern --completion bash)
+    alias stern='stern --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
+    alias log=stern
+    complete -o default -F __start_stern log
+    alias logs=stern
+    complete -o default -F __start_stern logs
+fi
+
+
+##
+## GoLang Settings
+##
+if [ -d "${__conda_dir}/envs/golang" ]; then
+    export GOPATH="${__conda_dir}/envs/golang"
+    export GOROOT="${GOPATH}/go"
+    export PATH="${PATH}:${GOPATH}/bin"
+    which -s gocomplete && complete -o nospace -C gocomplete go
+fi
+
+
+##
+## Initialise 'The Fuck' - command line error fixer
+##
+eval $(thefuck --alias)
+
+
+
+# Set personal aliases, overriding those provided by oh-my-bash libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-bash
+# users are encouraged to define aliases within the OSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias bashconfig="mate ~/.bashrc"
+# alias ohmybash="mate ~/.oh-my-bash"
+load "${HOME}/.aliases"
+load "${HOME}/.bash_aliases"
 
 # Set terminal colours
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Darwin" ]] && eval $(gdircolors ~/.dir_colors)

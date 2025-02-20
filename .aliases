@@ -64,7 +64,7 @@ alias output='t output'
 alias unlock='t force-unlock -force'
 
 # Kubernetes
-alias ks='k -n kube-system'
+alias kubectl='kubectl --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
 alias dev='k --context dev -n dev'
 alias idev='k --context idev -n dev'
 alias stage='k --context stage -n stg'
@@ -73,20 +73,47 @@ alias ops='k --context ops'
 alias prod='k --context prod -n prod'
 alias dr='k --context dr -n prod'
 alias bench='k --context benchmark'
+alias sand='k --context sandbox'
+alias ks='k -n kube-system'
 alias ka='k apply -f'
 alias kd='k delete -f'
-alias kgp='k get pod'
+alias kg='k get'
+alias kgp='kg pod'
 alias kgpw='kgp -w'
-alias kgd='k get deploy'
+alias kgd='kg deploy'
 alias kgdw='kgd -w'
-alias kgsa='k get sa'
+alias kgsa='kg sa'
+alias kgn='kg nodes'
 alias kex='k exec -it'
+alias kl='k logs'
+alias klf='kl -f'
+alias klp='kl --previous'
+alias krr='k rollout restart'
+
+# Stern
+alias stern='stern --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE" --tail 120'
 alias plogs='stern --context prod -n prod --tail 20'
 alias slogs='stern --context stage -n stg --tail 20'
 alias dlogs='stern --context dev -n dev --tail 20'
 
+# Helm
+alias helm='helm --kube-context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
+
 # HuggingFace
 alias hf='huggingface-cli'
+
+# Ollama
+alias o='ollama'
+alias ols='ollama ls'
+alias ol='ols'
+alias ops='ollama ps'
+alias op=ops
+alias orun='ollama run'
+alias or=orun
+alias ostop='ollama stop'
+alias os=ostop
+alias oshow='ollama show'
+alias osh=oshow
 
 # Auxiliary
 alias tf='thefuck'

@@ -43,6 +43,9 @@ bind F eval "hardstatus alwayslastline"
 # necessary for window autorenaming magic. Set the first character in the quotes to whatever your bash prompt ends in.
 shelltitle '>|bash'
 
+# Use bash as shell
+shell /usr/bin/env bash
+
 # mark zombies
 #defzombie " !"
 
