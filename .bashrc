@@ -207,45 +207,41 @@ fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-for __conda_dir in ${HOME}/condaforge ${HOME}/miniconda ${HOME}/miniconda3; do
-    [[ -d "${__conda_dir}" ]] && break
+for CONDA_ROOT_PREFIX in ${HOME}/condaforge ${HOME}/miniconda ${HOME}/miniconda3; do
+    [[ -d "${CONDA_ROOT_PREFIX}" ]] && break
 done
 
-export CONDA_ROOT_PREFIX="$__conda_dir"
-export CONDA_EXE="$__conda_dir/bin/conda"
+export CONDA_EXE="$CONDA_ROOT_PREFIX/bin/conda"
 
-__conda_setup="$(${CONDA_EXE} 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$(${CONDA_EXE} 'shell.bash' 'hook' 2>/dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    load "${__conda_dir}/etc/profile.d/conda.sh" && export PATH="${__conda_dir}/bin:${PATH}"
+    load "${CONDA_ROOT_PREFIX}/etc/profile.d/conda.sh" && export PATH="${CONDA_ROOT_PREFIX}/bin:${PATH}"
     alias conda="${CONDA_EXE}"
 fi
 
-unset __conda_dir
 unset __conda_setup
 # <<< conda initialize <<<
 
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
-for __mamba_dir in ${HOME}/mambaforge ${HOME}/minimamba ${HOME}/miniforge3; do
-    [[ -d "${__mamba_dir}" ]] && break
+for MAMBA_ROOT_PREFIX in ${HOME}/mambaforge ${HOME}/minimamba ${HOME}/miniforge3; do
+    [[ -d "${MAMBA_ROOT_PREFIX}" ]] && break
 done
 
-export MAMBA_ROOT_PREFIX="${__mamba_dir}"
-export MAMBA_EXE="${__mamba_dir}/bin/mamba"
+export MAMBA_EXE="${MAMBA_ROOT_PREFIX}/bin/mamba"
 
-__mamba_setup="$(${MAMBA_EXE} 'shell' 'hook' --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+__mamba_setup="$(${MAMBA_EXE} 'shell' 'hook' --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2>/dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
 else
-    load "${__mamba_dir}/etc/profile.d/mamba.sh" && export PATH="${__mamba_dir}/bin:${PATH}"
+    load "${MAMBA_ROOT_PREFIX}/etc/profile.d/mamba.sh" && export PATH="${MAMBA_ROOT_PREFIX}/bin:${PATH}"
     alias mamba="${MAMBA_EXE}"
 fi
 
 alias conda=mamba
-unset __mamba_dir
 unset __mamba_setup
 # <<< mamba initialize <<<
 
