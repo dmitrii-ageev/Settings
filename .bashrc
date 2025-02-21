@@ -8,6 +8,11 @@ load() {
   done
 }
 
+exist() {
+  # Check if command exists
+  command -v "$@" &>/dev/null
+}
+
 # Get the Operating System's name
 export OS=$(uname -s)
 
@@ -207,9 +212,9 @@ for __conda_dir in ${HOME}/condaforge ${HOME}/miniconda ${HOME}/miniconda3; do
 done
 
 export CONDA_ROOT_PREFIX="$__conda_dir"
-export CONDA_EXE="$__conda_dir/conda"
+export CONDA_EXE="$__conda_dir/bin/conda"
 
-__conda_setup="$(${__conda_dir}/bin/conda 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$(${CONDA_EXE} 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
@@ -229,9 +234,9 @@ for __mamba_dir in ${HOME}/mambaforge ${HOME}/minimamba ${HOME}/miniforge3; do
 done
 
 export MAMBA_ROOT_PREFIX="${__mamba_dir}"
-export MAMBA_EXE="${__mamba_dir}/mamba"
+export MAMBA_EXE="${__mamba_dir}/bin/mamba"
 
-__mamba_setup="$(${__mamba_dir}/bin/mamba 'shell' 'hook' --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+__mamba_setup="$(${MAMBA_EXE} 'shell' 'hook' --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
 else
@@ -271,7 +276,7 @@ load /opt/homebrew/etc/profile.d/bash_completion.sh
 ##
 ## Kubernetes Completions
 ##
-if which -s kubectl; then
+if exist kubectl; then
     export KUBECTL_CONTEXT=${KUBECTL_CONTEXT:-""}
     export KUBECTL_NAMESPACE=${KUBECTL_NAMESPACE:-"default"}
     source <(kubectl completion bash)
@@ -286,13 +291,13 @@ fi
 ##
 ## Helm Completions
 ##
-which -s helm && source <(helm completion bash)
+exist helm && source <(helm completion bash)
 
 
 #
 # STERN settings
 #
-if which -s stern; then
+if exist stern; then
     source <(stern --completion bash)
     alias stern='stern --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
     alias log=stern
@@ -309,14 +314,14 @@ if [ -d "${CONDA_ROOT_PREFIX:-$MAMBA_ROOT_PREFIX}/envs/golang" ]; then
     export GOPATH="${CONDA_ROOT_PREFIX:-$MAMBA_ROOT_PREFIX}/envs/golang"
     export GOROOT="${GOPATH}/go"
     export PATH="${PATH}:${GOPATH}/bin"
-    which -s gocomplete && complete -o nospace -C gocomplete go
+    exist gocomplete && complete -o nospace -C gocomplete go
 fi
 
 
 ##
 ## Initialise 'The Fuck' - command line error fixer
 ##
-eval $(thefuck --alias)
+exist thefuck && eval $(thefuck --alias)
 
 
 
