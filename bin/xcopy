@@ -1,2 +1,2 @@
 #!/bin/bash
-xclip -in -selection clipboard
+which -s xclip && xclip -in -selection clipboard || pbcopy

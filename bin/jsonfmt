@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+tempfile=$(mktemp)
+
+jq -M . $1 > $tempfile && mv $tempfile $1
