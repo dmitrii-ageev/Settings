@@ -202,13 +202,9 @@ fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if [ -d "${HOME}/condaforge" ]; then
-    __conda_dir="${HOME}/condaforge"
-elif [ -d "${HOME}/mambaforge" ]; then
-    __conda_dir="${HOME}/mambaforge"
-else
-    __conda_dir="${HOME}/miniforge3"
-fi
+for __conda_dir in condaforge mambaforge miniconda miniforge miniconda3 miniforge3; do
+    [[ -d "${__conda_dir}" ]] && break
+done
 
 __conda_setup="$(${__conda_dir}/bin/conda 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -216,6 +212,7 @@ if [ $? -eq 0 ]; then
 else
     load "${__conda_dir}/etc/profile.d/conda.sh" && export PATH="${__conda_dir}/bin:${PATH}"
 fi
+
 # unset __conda_dir - we need this variable to define a path to GoLang
 unset __conda_setup
 # <<< conda initialize <<<
