@@ -202,20 +202,47 @@ fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-for __conda_dir in condaforge mambaforge miniconda miniforge miniconda3 miniforge3; do
+for __conda_dir in ${HOME}/condaforge ${HOME}/miniconda ${HOME}/miniconda3; do
     [[ -d "${__conda_dir}" ]] && break
 done
+
+export CONDA_ROOT_PREFIX="$__conda_dir"
+export CONDA_EXE="$__conda_dir/conda"
 
 __conda_setup="$(${__conda_dir}/bin/conda 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
     load "${__conda_dir}/etc/profile.d/conda.sh" && export PATH="${__conda_dir}/bin:${PATH}"
+    alias conda="${CONDA_EXE}"
 fi
 
-# unset __conda_dir - we need this variable to define a path to GoLang
+unset __conda_dir
 unset __conda_setup
 # <<< conda initialize <<<
+
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+for __mamba_dir in ${HOME}/mambaforge ${HOME}/minimamba ${HOME}/miniforge3; do
+    [[ -d "${__mamba_dir}" ]] && break
+done
+
+export MAMBA_ROOT_PREFIX="${__mamba_dir}"
+export MAMBA_EXE="${__mamba_dir}/mamba"
+
+__mamba_setup="$(${__mamba_dir}/bin/mamba 'shell' 'hook' --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    load "${__mamba_dir}/etc/profile.d/mamba.sh" && export PATH="${__mamba_dir}/bin:${PATH}"
+    alias mamba="${MAMBA_EXE}"
+fi
+
+alias conda=mamba
+unset __mamba_dir
+unset __mamba_setup
+# <<< mamba initialize <<<
 
 
 # >>> Yandex cloud >>>
@@ -278,8 +305,8 @@ fi
 ##
 ## GoLang Settings
 ##
-if [ -d "${__conda_dir}/envs/golang" ]; then
-    export GOPATH="${__conda_dir}/envs/golang"
+if [ -d "${CONDA_ROOT_PREFIX:-$MAMBA_ROOT_PREFIX}/envs/golang" ]; then
+    export GOPATH="${CONDA_ROOT_PREFIX:-$MAMBA_ROOT_PREFIX}/envs/golang"
     export GOROOT="${GOPATH}/go"
     export PATH="${PATH}:${GOPATH}/bin"
     which -s gocomplete && complete -o nospace -C gocomplete go
