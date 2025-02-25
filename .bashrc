@@ -212,6 +212,7 @@ for CONDA_ROOT_PREFIX in ${HOME}/condaforge ${HOME}/miniconda ${HOME}/miniconda3
 done
 
 export CONDA_EXE="$CONDA_ROOT_PREFIX/bin/conda"
+export CONDA_ROOT_PREFIX
 
 __conda_setup="$(${CONDA_EXE} 'shell.bash' 'hook' 2>/dev/null)"
 if [ $? -eq 0 ]; then
@@ -232,6 +233,7 @@ for MAMBA_ROOT_PREFIX in ${HOME}/mambaforge ${HOME}/minimamba ${HOME}/miniforge3
 done
 
 export MAMBA_EXE="${MAMBA_ROOT_PREFIX}/bin/mamba"
+export MAMBA_ROOT_PREFIX
 
 __mamba_setup="$(${MAMBA_EXE} 'shell' 'hook' --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2>/dev/null)"
 if [ $? -eq 0 ]; then
