@@ -280,7 +280,10 @@ load "${HOME}/yandex-cloud/completion.bash.inc"
 
 
 # >>> Pulumi >>>
-load "${HOME}/bin/pulumi/completion.bash.inc" && export PATH="${PATH}:${HOME}/bin/pulumi"
+exist "${HOME}/bin/pulumi/pulumi" && \
+    export PATH="${PATH}:${HOME}/bin/pulumi" && \
+        load "${HOME}/bin/pulumi/completion.bash.inc"
+
 # <<< Pulumi <<<
 
 
