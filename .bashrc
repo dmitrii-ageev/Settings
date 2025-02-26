@@ -13,6 +13,56 @@ exist() {
   command -v "$@" &>/dev/null
 }
 
+# Function to initialize a Conda-like environment
+init_conda_env() {
+    local tool_name="$1"  # e.g., "conda" or "mamba"
+    local possible_prefixes=("${@:2}")  # Array of root prefixes to check
+    local root_prefix=""
+    local exe=""
+
+    # Find the first existing root prefix
+    for prefix in "${possible_prefixes[@]}"; do
+        if [[ -d "$prefix" ]]; then
+            root_prefix="$prefix"
+            break
+        fi
+    done
+
+    # If no prefix found, return early
+    if [[ -z "$root_prefix" ]]; then
+        return 1
+    fi
+
+    # Set executable path
+    exe="${root_prefix}/bin/${tool_name}"
+    if [[ ! -x "$exe" ]]; then
+        return 1
+    fi
+
+    # Export variables
+    export "${tool_name^^}_EXE"="$exe"  # e.g., CONDA_EXE or MAMBA_EXE
+    export "${tool_name^^}_ROOT_PREFIX"="$root_prefix"  # e.g., CONDA_ROOT_PREFIX
+
+    # Attempt to initialize shell hook
+    local setup
+    setup="$("$exe" shell.bash hook 2>/dev/null)"
+    if [[ $? -eq 0 ]]; then
+        eval "$setup"
+        return 0
+    fi
+
+    # Update PATH
+    export PATH="${root_prefix}/bin:$PATH"
+    alias "$tool_name"="$exe"
+
+    # Fallback: source profile.d script if it exists
+    load "${root_prefix}/etc/profile.d/conda.sh" && return 0
+    load "${root_prefix}/etc/profile.d/${tool_name}.sh" && return 0
+
+    # Ensure clean exit
+    return 0
+}
+
 # Get the Operating System's name
 export OS=$(uname -s)
 
@@ -206,46 +256,18 @@ fi
 #
 
 # >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-for CONDA_ROOT_PREFIX in ${HOME}/condaforge ${HOME}/miniconda ${HOME}/miniconda3; do
-    [[ -d "${CONDA_ROOT_PREFIX}" ]] && break
-done
+# Define possible installation paths for each tool
+conda_prefixes=("$HOME/condaforge" "$HOME/miniconda" "$HOME/miniconda3")
+mamba_prefixes=("$HOME/mambaforge" "$HOME/minimamba" "$HOME/miniforge3" "$HOME/micromamba")
 
-export CONDA_EXE="$CONDA_ROOT_PREFIX/bin/conda"
-export CONDA_ROOT_PREFIX
-
-__conda_setup="$(${CONDA_EXE} 'shell.bash' 'hook' 2>/dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    load "${CONDA_ROOT_PREFIX}/etc/profile.d/conda.sh" && export PATH="${CONDA_ROOT_PREFIX}/bin:${PATH}"
-    alias conda="${CONDA_EXE}"
+# Initialize environments in order of preference
+if ! init_conda_env "mamba" "${mamba_prefixes[@]}"; then
+    if ! init_conda_env "conda" "${conda_prefixes[@]}"; then
+        # No environment found; do nothing or log a message if desired
+        :
+    fi
 fi
-
-unset __conda_setup
 # <<< conda initialize <<<
-
-
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-for MAMBA_ROOT_PREFIX in ${HOME}/mambaforge ${HOME}/minimamba ${HOME}/miniforge3; do
-    [[ -d "${MAMBA_ROOT_PREFIX}" ]] && break
-done
-
-export MAMBA_EXE="${MAMBA_ROOT_PREFIX}/bin/mamba"
-export MAMBA_ROOT_PREFIX
-
-__mamba_setup="$(${MAMBA_EXE} 'shell' 'hook' --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2>/dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    load "${MAMBA_ROOT_PREFIX}/etc/profile.d/mamba.sh" && export PATH="${MAMBA_ROOT_PREFIX}/bin:${PATH}"
-    alias mamba="${MAMBA_EXE}"
-fi
-
-alias conda=mamba
-unset __mamba_setup
-# <<< mamba initialize <<<
 
 
 # >>> Yandex cloud >>>
