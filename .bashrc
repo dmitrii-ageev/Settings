@@ -13,6 +13,11 @@ exist() {
   command -v "$@" &>/dev/null
 }
 
+execute() {
+  # Execute a command and suppress the output
+  $@ &>/dev/null
+}
+
 # Function to initialize a Conda-like environment
 init_conda_env() {
     local tool_name="$1"  # e.g., "conda" or "mamba"
@@ -346,6 +351,11 @@ fi
 exist thefuck && eval $(thefuck --alias)
 
 
+
+##
+## Initialise 'xbanish' - Hiding mouse cursor while typing
+##
+exist xbanish && execute xbanish &
 
 # Set personal aliases, overriding those provided by oh-my-bash libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-bash
