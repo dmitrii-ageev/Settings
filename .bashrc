@@ -351,12 +351,6 @@ fi
 exist thefuck && eval $(thefuck --alias)
 
 
-
-##
-## Initialise 'xbanish' - Hiding mouse cursor while typing
-##
-exist xbanish && execute xbanish &
-
 # Set personal aliases, overriding those provided by oh-my-bash libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-bash
 # users are encouraged to define aliases within the OSH_CUSTOM folder.
