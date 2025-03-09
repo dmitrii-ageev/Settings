@@ -299,6 +299,13 @@ load /opt/homebrew/etc/profile.d/bash_completion.sh
 #autoload -U +X bashcompinit && bashcompinit
 
 
+##
+## AWS Completions
+##
+if exist aws_completer; then
+    complete -C $(which aws_completer) aws
+fi
+
 
 ##
 ## Kubernetes Completions
