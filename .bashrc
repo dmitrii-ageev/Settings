@@ -358,6 +358,11 @@ fi
 exist thefuck && eval $(thefuck --alias)
 
 
+##
+## Initialise 'Cloud Nuke' - AWS Resource Purifier
+##
+exist cloud-nuke && export DISABLE_TELEMETRY=true
+
 # Set personal aliases, overriding those provided by oh-my-bash libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-bash
 # users are encouraged to define aliases within the OSH_CUSTOM folder.
