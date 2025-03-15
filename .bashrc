@@ -256,6 +256,14 @@ if ! shopt -oq posix; then
 fi
 
 
+# Start SSH Agent on Linux
+if [ "$OS" == "Linux" ]; then
+    export SSH_AUTH_SOCK=$(find /tmp -type s -name "agent.*" 2>/dev/null | head -n 1)
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        eval "$(ssh-agent -s 2>/dev/null)"
+    fi
+fi
+
 #
 # Application settings
 #
