@@ -260,7 +260,7 @@ fi
 if [ "$OS" == "Linux" ]; then
     export SSH_AUTH_SOCK=$(find /tmp -type s -name "agent.*" 2>/dev/null | head -n 1)
     if [ -z "$SSH_AUTH_SOCK" ]; then
-        eval "$(ssh-agent -s 2>/dev/null)"
+        eval "$(ssh-agent -s)"
     fi
 fi
 
