@@ -21,7 +21,7 @@ alias post='gp -u origin HEAD && gp --tags'
 alias gpt='gp --tags'
 
 #GPG
-alias encrypt='gpg -e -r ya@hiki.su -r dmitrii@opsworks.ru -r dmitrii@soft-engineering.com'
+alias encrypt='gpg -e -r ya@hiki.su -r dmitrii@opsworks.ru -r dmitrii@soft-engineering.com -r dmitrii@northlandpositronics.com'
 
 # SSH
 alias ssh='ssh -A'
