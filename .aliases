@@ -8,7 +8,8 @@ alias edit-aliases='vim ~/.aliases'
 
 # IDE
 alias vim='/usr/bin/vim'
-alias vi='vim'
+alias nvim='/usr/bin/nvim'
+alias vi='nvim'
 alias vscode='open ~/Applications/Visual\ Studio\ Code.app'
 
 # GIT

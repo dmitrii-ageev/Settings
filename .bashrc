@@ -169,6 +169,17 @@ aliases=(
   terraform
 )
 
+# Set personal aliases, overriding those provided by oh-my-bash libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-bash
+# users are encouraged to define aliases within the OSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias bashconfig="mate ~/.bashrc"
+# alias ohmybash="mate ~/.oh-my-bash"
+load "${HOME}/.aliases"
+load "${HOME}/.bash_aliases"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
 # Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -202,7 +213,9 @@ source $OSH/oh-my-bash.sh
 export LANG=en_GB.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='nvim'
+[[ "$OS" == "Darwin" ]] && export EDITOR='vim'
+[[ "$OS" == "Linux" ]] && export EDITOR='nvim'
+alias vi=${EDITOR}
 
 # Preferred pager for local and remote sessions
 [[ "$OS" == "Darwin" ]] && export PAGER='more -r'
@@ -370,17 +383,6 @@ exist thefuck && eval $(thefuck --alias)
 ## Initialise 'Cloud Nuke' - AWS Resource Purifier
 ##
 exist cloud-nuke && export DISABLE_TELEMETRY=true
-
-# Set personal aliases, overriding those provided by oh-my-bash libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-bash
-# users are encouraged to define aliases within the OSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias bashconfig="mate ~/.bashrc"
-# alias ohmybash="mate ~/.oh-my-bash"
-load "${HOME}/.aliases"
-load "${HOME}/.bash_aliases"
 
 # Set terminal colours
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Darwin" ]] && eval $(gdircolors ~/.dir_colors)
