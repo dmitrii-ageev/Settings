@@ -230,6 +230,9 @@ export TERRAGRUNT_DISABLE_TELEMETRY=true
 # Disalbe Terraform Telemetry
 export CHECKPOINT_DISABLE=1
 
+# Disable Pulumi Telemetry
+export PULUMI_DISABLE_TELEMETRY=1
+
 # SSH
 if [ -f "${HOME}/.ssh/workstation.pem" ]; then
     export SSH_KEY_PATH="${HOME}/.ssh/workstation.pem"
