@@ -224,8 +224,22 @@ alias vi=${EDITOR}
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
 
-# ssh
-export SSH_KEY_PATH="${HOME}/.ssh/workstation.pem"
+# Disable Terragrunt Telemetry
+export TERRAGRUNT_DISABLE_TELEMETRY=true
+
+# Disalbe Terraform Telemetry
+export CHECKPOINT_DISABLE=1
+
+# SSH
+if [ -f "${HOME}/.ssh/workstation.pem" ]; then
+    export SSH_KEY_PATH="${HOME}/.ssh/workstation.pem"
+else
+    export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
+fi
+
+# GIT
+export GIT_SSH_KEY="${GIT_SSH_KEY:-$SSH_KEY_PATH}"
+export GIT_SSH_COMMAND='ssh -i ${GIT_SSH_KEY} -o IdentitiesOnly=yes'
 
 # Set Terminal-related settings
 export GPG_TTY=$(tty)
