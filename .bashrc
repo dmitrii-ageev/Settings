@@ -10,7 +10,7 @@ load() {
 
 exist() {
   # Check if command exists
-  command -v "$@" &>/dev/null
+  which "$@" &>/dev/null
 }
 
 execute() {
