@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash"
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash"
 
 # Defind a funciton set in here
 load() {
@@ -400,6 +404,23 @@ exist thefuck && eval $(thefuck --alias)
 ## Initialise 'Cloud Nuke' - AWS Resource Purifier
 ##
 exist cloud-nuke && export DISABLE_TELEMETRY=true
+
+
+##
+## Amazon Q post block. Keep at the bottom of this file.
+##
+if exist q; then
+    load "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
+
+    # Amazon Q post block. Keep at the bottom of this file.
+    load "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"
+
+    # Amazon Q completion
+    source ${HOME}/bin/q-completion.bash
+
+    # Disable Amazon Q Telemetry
+    q telemetry disable
+fi
 
 # Set terminal colours
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Darwin" ]] && eval $(gdircolors ~/.dir_colors)
