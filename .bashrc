@@ -410,13 +410,15 @@ exist cloud-nuke && export DISABLE_TELEMETRY=true
 ## Amazon Q post block. Keep at the bottom of this file.
 ##
 if exist q; then
-    load "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
+    if [ "$OS" == "Darwin" ]; then
+        load "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
 
-    # Amazon Q post block. Keep at the bottom of this file.
-    load "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"
+        # Amazon Q post block. Keep at the bottom of this file.
+        load "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"
+    fi
 
     # Amazon Q completion
-    source ${HOME}/bin/q-completion.bash
+    source ${HOME}/.config/amazon-q/completion.bash.inc
 
     # Disable Amazon Q Telemetry
     q telemetry disable
