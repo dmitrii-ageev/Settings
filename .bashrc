@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/.local/share/amazon-q/shell/bashrc.pre.bash" ]] && builtin source "${HOME}/.local/share/amazon-q/shell/bashrc.pre.bash"
+# Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash"
 # Amazon Q pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash"
@@ -410,12 +412,12 @@ exist cloud-nuke && export DISABLE_TELEMETRY=true
 ## Amazon Q post block. Keep at the bottom of this file.
 ##
 if exist q; then
-    if [ "$OS" == "Darwin" ]; then
-        load "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
 
-        # Amazon Q post block. Keep at the bottom of this file.
-        load "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"
-    fi
+    [[ "$OS" == "Darwin" ]] && export AMAZON_Q_HOME="${HOME}/Library/Application Support/amazon-q"
+    [[ "$OS" == "Linux" ]] && export AMAZON_Q_HOME="${HOME}/.local/share/amazon-q"
+
+    load "${AMAZON_Q_HOME}/shell/bashrc.post.bash"
+    load "${AMAZON_Q_HOME}/shell/bash_profile.post.bash"
 
     # Amazon Q completion
     source ${HOME}/.config/amazon-q/completion.bash.inc
