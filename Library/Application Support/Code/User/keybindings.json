@@ -42,6 +42,11 @@
         "key": "cmd+escape",
         "command": "workbench.action.toggleSidebarVisibility"
     },
+    {
+        "key": "ctrl+escape",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "editorTextFocus || terminalFocus"
+    },
     // Editor tab navigation (when editor is focused)
     {
         "key": "cmd+1",
@@ -222,5 +227,10 @@
     {
         "key": "shift+cmd+i",
         "command": "-continue.focusEditWithoutClear"
+    },
+    {
+        "key": "cmd+f",
+        "command": "workbench.action.findInFiles",
+        "when": "sideBarFocus"
     }
 ]

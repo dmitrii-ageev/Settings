@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
+random=$(head -c8 /dev/random | base64 -w0 | tr [A-Z] [0-9] | tr [a-z] [0-9] | sed 's/]//g' | sed 's/[+=\/]*//g')
+
+dht_port="53$(echo $random | head -c3)"
+torrent_port="54$(echo $random | head -c3)"
+
 torrent="$@"
-which -s webtorrent && webtorrent "${torrent}"
+which -s webtorrent && webtorrent -p 8080 --dht-port $dht_port --torrent-port $torrent_port "${torrent}"
+
