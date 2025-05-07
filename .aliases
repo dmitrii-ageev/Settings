@@ -18,7 +18,10 @@ alias gt='git tag'
 alias gtsm='gts -m'
 alias gtd='gt -d'
 alias post='gp -u origin HEAD && gp --tags'
+alias fetch='gf'
 alias pull='gf; gl'
+alias back='gco @{-1}'
+alias drop='gbd -D @{-1}'
 alias gpt='gp --tags'
 
 #GPG
