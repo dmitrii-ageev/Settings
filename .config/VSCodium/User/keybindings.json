@@ -1,5 +1,21 @@
 // Place your key bindings in this file to override the defaults
 [
+    // Toggle sidebar visibility with terminal override
+    {
+        "key": "alt+b",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "alt+b",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[66;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+b",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "terminalFocus && !terminalProcessSupported"
+    },
     {
         "key": "alt+t",
         "command": "-gl.generateTests",
@@ -41,9 +57,16 @@
         "command": "filesExplorer.cut",
         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     },
+    // Quit VS Code
     {
         "key": "alt+q",
-        "command": "workbench.action.closeAllEditors"
+        "command": "workbench.action.quit"
+    },
+    {
+        "key": "alt+q",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[81;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
     },
     {
         "key": "alt+w",
@@ -93,5 +116,297 @@
     {
         "key": "alt+s",
         "command": "git.sync"
+    },
+    
+    // Navigation between editor groups
+    {
+        "key": "alt+left",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "alt+left",
+        "command": "workbench.action.navigateLeft",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+right",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "alt+right",
+        "command": "workbench.action.navigateRight",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+up",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "alt+up",
+        "command": "workbench.action.navigateUp",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+down",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "alt+down",
+        "command": "workbench.action.navigateDown",
+        "when": "terminalFocus"
+    },
+    
+    // Quick file navigation
+    {
+        "key": "alt+p",
+        "command": "workbench.action.quickOpen"
+    },
+    
+    // Search in files
+    {
+        "key": "alt+f",
+        "command": "workbench.action.findInFiles"
+    },
+    
+    // Code folding
+    {
+        "key": "alt+[",
+        "command": "editor.fold"
+    },
+    {
+        "key": "alt+]",
+        "command": "editor.unfold"
+    },
+    
+    // Multi-cursor editing
+    {
+        "key": "alt+d",
+        "command": "editor.action.addSelectionToNextFindMatch"
+    },
+    
+    // Zen mode
+    {
+        "key": "alt+z",
+        "command": "workbench.action.toggleZenMode"
+    },
+    
+    // Terminal management
+    {
+        "key": "alt+shift+t",
+        "command": "workbench.action.terminal.new"
+    },
+    {
+        "key": "alt+pageup",
+        "command": "workbench.action.terminal.focusPrevious"
+    },
+    {
+        "key": "alt+pagedown",
+        "command": "workbench.action.terminal.focusNext"
+    },
+    
+    // Editor splitting
+    {
+        "key": "alt+\\",
+        "command": "workbench.action.splitEditor"
+    },
+    {
+        "key": "alt+shift+\\",
+        "command": "workbench.action.splitEditorOrthogonal"
+    },
+    
+    // Problem navigation
+    {
+        "key": "alt+n",
+        "command": "editor.action.marker.next"
+    },
+    {
+        "key": "alt+shift+n",
+        "command": "editor.action.marker.prev"
+    },
+    
+    // Quick fixes and refactoring
+    {
+        "key": "alt+.",
+        "command": "editor.action.quickFix"
     }
 ]
+    // Close all editors (moved from Alt+Q)
+    {
+        "key": "alt+shift+q",
+        "command": "workbench.action.closeAllEditors"
+    },
+    // Switch between editor tabs (Alt+1-9)
+    {
+        "key": "alt+1",
+        "command": "workbench.action.openEditorAtIndex1"
+    },
+    {
+        "key": "alt+2",
+        "command": "workbench.action.openEditorAtIndex2"
+    },
+    {
+        "key": "alt+3",
+        "command": "workbench.action.openEditorAtIndex3"
+    },
+    {
+        "key": "alt+4",
+        "command": "workbench.action.openEditorAtIndex4"
+    },
+    {
+        "key": "alt+5",
+        "command": "workbench.action.openEditorAtIndex5"
+    },
+    {
+        "key": "alt+6",
+        "command": "workbench.action.openEditorAtIndex6"
+    },
+    {
+        "key": "alt+7",
+        "command": "workbench.action.openEditorAtIndex7"
+    },
+    {
+        "key": "alt+8",
+        "command": "workbench.action.openEditorAtIndex8"
+    },
+    {
+        "key": "alt+9",
+        "command": "workbench.action.openEditorAtIndex9"
+    },
+    
+    // Switch between terminal tabs (Alt+1-9 when terminal is focused)
+    {
+        "key": "alt+1",
+        "command": "workbench.action.terminal.focusAtIndex1",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+2",
+        "command": "workbench.action.terminal.focusAtIndex2",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+3",
+        "command": "workbench.action.terminal.focusAtIndex3",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+4",
+        "command": "workbench.action.terminal.focusAtIndex4",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+5",
+        "command": "workbench.action.terminal.focusAtIndex5",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+6",
+        "command": "workbench.action.terminal.focusAtIndex6",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+7",
+        "command": "workbench.action.terminal.focusAtIndex7",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+8",
+        "command": "workbench.action.terminal.focusAtIndex8",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+9",
+        "command": "workbench.action.terminal.focusAtIndex9",
+        "when": "terminalFocus"
+    },
+    
+    // Terminal escape sequences for Alt+1-9 to ensure they work in terminal
+    {
+        "key": "alt+1",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[49;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+2",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[50;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+3",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[51;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+4",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[52;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+5",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[53;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+6",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[54;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+7",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[55;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+8",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[56;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+9",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[57;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    }
+    // Switch between editor tabs with Alt+[ and Alt+]
+    {
+        "key": "alt+[",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "alt+]",
+        "command": "workbench.action.nextEditor"
+    },
+    
+    // Switch between terminal tabs with Alt+[ and Alt+] when terminal is focused
+    {
+        "key": "alt+[",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+]",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+    
+    // Terminal escape sequences for Alt+[ and Alt+] to ensure they work in terminal
+    {
+        "key": "alt+[",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[91;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+]",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {"text":"\u001b[93;5u"},
+        "when": "terminalFocus && terminalProcessSupported"
+    }
