@@ -2,6 +2,7 @@
 alias a='bm -l'
 alias gr='grep'
 alias ls='ls --color'
+alias lls='ls'
 alias ll='ls -l'
 alias lll='ls -l'
 alias edit-aliases='vim ~/.aliases'
@@ -69,6 +70,13 @@ alias console='t console'
 alias output='t output'
 alias unlock='t force-unlock -force'
 alias clean='/bin/rm -fr .terraform .terraform.locl.hcl terraform.tfstate* plan.out'
+
+# Pulumi
+alias pl='pulumi'
+alias preview='pl preview'
+alias up='pl up'
+alias stack='pl stack'
+
 
 # Kubernetes
 alias kubectl='kubectl --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
