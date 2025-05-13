@@ -426,9 +426,18 @@ if exist q; then
     q telemetry disable
 fi
 
+
+##
+## Initialise 'Lean Prover' - Lean4 Language
+##
+# [[ -d "${HOME}/bin/lean" ]] && export PATH="${PATH}:${HOME}/bin/lean/bin"
+
+
 # Set terminal colours
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Darwin" ]] && eval $(gdircolors ~/.dir_colors)
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Linux" ]] && eval $(dircolors ~/.dir_colors)
 
 # Exit with the zero code
 true
+
+export PATH="$HOME/.elan/bin:$PATH"
