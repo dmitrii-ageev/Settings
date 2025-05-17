@@ -34,49 +34,54 @@ alias ssh='ssh -A'
 # OpenLens
 alias lens='open /Applications/OpenLens.app'
 
-# Terraform
+# IaC tool selection mechanism
+export CURRENT_TOOL=""
+
+# Function to switch between different IaC tools
+use() {
+    local tool=$1
+    
+    # First, unalias any potentially conflicting commands
+    for cmd in init reconfigure migrate-state refresh plan apply deploy destroy knock update purge target upgrade gogogo ggg state show list format validate taint untaint docs lint get version import run console output unlock clean preview up stack; do
+        unalias $cmd 2>/dev/null || true
+    done
+    
+    # Now load the appropriate alias set
+    case "$tool" in
+        terraform)
+            source ~/.aliases-terraform
+            export CURRENT_TOOL="terraform"
+            echo "Switched to Terraform aliases"
+            ;;
+        terragrunt)
+            source ~/.aliases-terragrunt
+            export CURRENT_TOOL="terragrunt"
+            echo "Switched to Terragrunt aliases"
+            ;;
+        pulumi)
+            source ~/.aliases-pulumi
+            export CURRENT_TOOL="pulumi"
+            echo "Switched to Pulumi aliases"
+            ;;
+        none)
+            export CURRENT_TOOL=""
+            echo "All IaC tool aliases unloaded"
+            ;;
+        *)
+            echo "Unknown tool: $tool"
+            echo "Available options: terraform, terragrunt, pulumi, none"
+            return 1
+            ;;
+    esac
+}
+
+# Always ensure we have base tool commands available
 alias t='terraform'
 alias tg='terragrunt'
-alias init='t init'
-alias reconfigure='init -reconfigure'
-alias migrate-state='init -migrate-state'
-alias refresh='t refresh'
-alias plan='t plan -out plan.out'
-alias apply='t apply plan.out'
-alias deploy='t apply -target'
-alias destroy='t destroy'
-alias knock='destroy -target'
-alias update='refresh -target'
-alias purge='destroy -auto-approve'
-alias target='plan -target'
-alias upgrade='target'
-alias gogogo='t apply -auto-approve'
-alias ggg='gogogo'
-alias state='t state'
-alias show='t show'
-alias list='state list'
-alias format='t fmt'
-alias hclfmt='tg hclfmt'
-alias validate='t validate'
-alias taint='t taint'
-alias untaint='t untaint'
-alias docs='terraform-docs markdown --output-file README.md .'
-alias lint='tflint'
-alias get='t get'
-alias version='t version'
-alias import='t import'
-alias run='tg run-all'
-alias console='t console'
-alias output='t output'
-alias unlock='t force-unlock -force'
-alias clean='/bin/rm -fr .terraform .terraform.locl.hcl terraform.tfstate* plan.out'
-
-# Pulumi
 alias pl='pulumi'
-alias preview='pl preview'
-alias up='pl up'
-alias stack='pl stack'
 
+# Default to terraform aliases (can be changed in .bashrc if needed)
+use terraform
 
 # Kubernetes
 alias kubectl='kubectl --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'

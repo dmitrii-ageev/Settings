@@ -331,7 +331,8 @@ load "${HOME}/yandex-cloud/completion.bash.inc"
 # >>> Pulumi >>>
 exist "${HOME}/bin/pulumi/pulumi" && \
     export PATH="${PATH}:${HOME}/bin/pulumi" && \
-        load "${HOME}/bin/pulumi/completion.bash.inc"
+        load "${HOME}/bin/pulumi/completion.bash.inc" && \
+            complete -o default -F __start_pulumi pl
 # <<< Pulumi <<<
 
 
