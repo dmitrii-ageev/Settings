@@ -429,6 +429,12 @@ fi
 
 
 ##
+## Initialise 'GitHub CLI Cliekt' - gh cli tool
+##
+exist gh && load ~/.config/gh/completion.bash.inc
+
+
+##
 ## Initialise 'Lean Prover' - Lean4 Language
 ##
 # [[ -d "${HOME}/bin/lean" ]] && export PATH="${PATH}:${HOME}/bin/lean/bin"
