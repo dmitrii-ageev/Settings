@@ -40,28 +40,28 @@ export CURRENT_TOOL=""
 # Function to switch between different IaC tools
 use() {
     local tool=$1
-    
+
     # First, unalias any potentially conflicting commands
     for cmd in init reconfigure migrate-state refresh plan apply deploy destroy knock update purge target upgrade gogogo ggg state show list format validate taint untaint docs lint get version import run console output unlock clean preview up stack; do
         unalias $cmd 2>/dev/null || true
     done
-    
+
     # Now load the appropriate alias set
     case "$tool" in
         terraform)
             source ~/.aliases-terraform
+            [[ -n "$CURRENT_TOOL" ]] && echo "Switched to Terraform aliases"
             export CURRENT_TOOL="terraform"
-            echo "Switched to Terraform aliases"
             ;;
         terragrunt)
             source ~/.aliases-terragrunt
+            [[ -n "$CURRENT_TOOL" ]] && echo "Switched to Terragrunt aliases"
             export CURRENT_TOOL="terragrunt"
-            echo "Switched to Terragrunt aliases"
             ;;
         pulumi)
             source ~/.aliases-pulumi
+            [[ -n "$CURRENT_TOOL" ]] && echo "Switched to Pulumi aliases"
             export CURRENT_TOOL="pulumi"
-            echo "Switched to Pulumi aliases"
             ;;
         none)
             export CURRENT_TOOL=""
@@ -81,7 +81,7 @@ alias tg='terragrunt'
 alias pl='pulumi'
 
 # Default to terraform aliases (can be changed in .bashrc if needed)
-use terraform
+use pulumi
 
 # Kubernetes
 alias kubectl='kubectl --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
