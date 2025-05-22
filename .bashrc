@@ -239,12 +239,8 @@ export CHECKPOINT_DISABLE=1
 # Disable Pulumi Telemetry
 export PULUMI_DISABLE_TELEMETRY=1
 
-# SSH
-if [ -f "${HOME}/.ssh/workstation.pem" ]; then
-    export SSH_KEY_PATH="${HOME}/.ssh/workstation.pem"
-else
-    export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
-fi
+# Set a default SSH key
+export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
 
 # GIT
 export GIT_SSH_KEY="${GIT_SSH_KEY:-$SSH_KEY_PATH}"
