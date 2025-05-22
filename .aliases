@@ -24,6 +24,7 @@ alias pull='gf; gl'
 alias back='gco @{-1}'
 alias drop='gbd -D @{-1}'
 alias gpt='gp --tags'
+alias merge='gm @{-1}'
 
 #GPG
 alias encrypt='gpg -e -r ya@hiki.su -r dmitrii@opsworks.ru -r dmitrii@soft-engineering.com -r dmitrii@northlandpositronics.com'
