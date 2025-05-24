@@ -440,6 +440,9 @@ exist gh && load ~/.config/gh/completion.bash.inc
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Darwin" ]] && eval $(gdircolors ~/.dir_colors)
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Linux" ]] && eval $(dircolors ~/.dir_colors)
 
+# Disable the XON/XOFF flow control in terminal sessions
+stty -ixon
+
 # Exit with the zero code
 true
 
