@@ -8,8 +8,8 @@ alias lll='ls -l'
 alias edit-aliases='vim ~/.aliases'
 
 # IDE
-alias vim='/usr/bin/nvim'
-alias nvim='/usr/bin/nvim'
+[[ -e '/usr/bin/nvim' ]] && alias vim='/usr/bin/nvim'
+alias nvim=$(which nvim)
 alias vi='vim'
 alias vscode='open ~/Applications/Visual\ Studio\ Code.app'
 
