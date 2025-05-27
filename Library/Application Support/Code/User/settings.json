@@ -5,6 +5,7 @@
   "amazonQ.telemetry": false,
   "amazonQ.workspaceIndex": true,
   "aws.telemetry": false,
+  "docker.extension.dockerEngineAvailabilityPrompt": false,
   "editor.accessibilitySupport": "off",
   "editor.fontFamily": "'JetBrainsMonoNL NF', monospace",
   "editor.fontLigatures": true,
@@ -130,6 +131,5 @@
   "window.confirmBeforeClose": "keyboardOnly",
   "workbench.activityBar.location": "top",
   "workbench.colorTheme": "Visual Studio 2017 Dark - C++",
-  "workbench.startupEditor": "none",
-  "docker.extension.dockerEngineAvailabilityPrompt": false
+  "workbench.startupEditor": "none"
 }
