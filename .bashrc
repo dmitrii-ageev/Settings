@@ -394,6 +394,15 @@ fi
 
 
 ##
+## Java configuration
+##
+if [ -d /opt/homebrew/opt/openjdk ]; then
+    export JAVA_HOME="/opt/homebrew/opt/openjdk"
+    export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+fi
+
+
+##
 ## Initialise 'The Fuck' - command line error fixer
 ##
 exist thefuck && eval $(thefuck --alias)
@@ -433,7 +442,7 @@ exist gh && load ~/.config/gh/completion.bash.inc
 ##
 ## Initialise 'Lean Prover' - Lean4 Language
 ##
-# [[ -d "${HOME}/bin/lean" ]] && export PATH="${PATH}:${HOME}/bin/lean/bin"
+[[ -d "${HOME}/bin/lean" ]] && export PATH="${PATH}:${HOME}/bin/lean/bin"
 
 
 # Set terminal colours
