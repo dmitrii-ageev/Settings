@@ -421,6 +421,7 @@ if exist q; then
 
     [[ "$OS" == "Darwin" ]] && export AMAZON_Q_HOME="${HOME}/Library/Application Support/amazon-q"
     [[ "$OS" == "Linux" ]] && export AMAZON_Q_HOME="${HOME}/.local/share/amazon-q"
+    export AMAZON_Q_CONFIG="${HOME}/.aws/amazonq/config.json"
 
     load "${AMAZON_Q_HOME}/shell/bashrc.post.bash"
     load "${AMAZON_Q_HOME}/shell/bash_profile.post.bash"
@@ -429,7 +430,8 @@ if exist q; then
     source ${HOME}/.config/amazon-q/completion.bash.inc
 
     # Disable Amazon Q Telemetry
-    q telemetry disable
+    [[ ! -d "$(dirname ${AMAZON_Q_CONFIG})" ]] &&  mkdir -m 700 -p "$(dirname ${AMAZON_Q_CONFIG})"
+    [[ ! -e "${AMAZON_Q_CONFIG}" ]] && echo '{ "telemetry": false }' > "${AMAZON_Q_CONFIG}"
 fi
 
 
