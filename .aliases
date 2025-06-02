@@ -23,6 +23,7 @@ alias post='gp -u origin HEAD && gp --tags'
 alias fetch='gf'
 alias pull='gf; gl'
 alias reset=grhh
+alias production='gco production'
 alias back='gco @{-1}'
 alias drop='gbd -D @{-1}'
 alias gpt='gp --tags'
