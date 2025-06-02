@@ -20,6 +20,7 @@ alias gtsm='gts -m'
 alias gtd='gt -d'
 alias branch='gcb'
 alias post='gp -u origin HEAD && gp --tags'
+alias push='gp'
 alias fetch='gf'
 alias pull='gf; gl'
 alias reset=grhh
