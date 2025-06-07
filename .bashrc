@@ -89,6 +89,8 @@ export OSH=${HOME}/.oh-my-bash
 #OSH_THEME="powerline"
 OSH_THEME=${OSH_THEME:-"agnoster"}
 
+[[ -n "$COMPOSER_NO_INTERACTION" ]] && unset OSH_THEME
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
