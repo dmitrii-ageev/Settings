@@ -55,26 +55,31 @@ use() {
     case "$tool" in
         terraform)
             source ~/.aliases-terraform
-            [[ -n "$CURRENT_TOOL" ]] && echo "Switched to Terraform aliases"
+            [[ -n "$CURRENT_TOOL" ]] && echo "Activated Terraform aliases"
             export CURRENT_TOOL="terraform"
             ;;
         terragrunt)
             source ~/.aliases-terragrunt
-            [[ -n "$CURRENT_TOOL" ]] && echo "Switched to Terragrunt aliases"
+            [[ -n "$CURRENT_TOOL" ]] && echo "Activated Terragrunt aliases"
             export CURRENT_TOOL="terragrunt"
             ;;
         pulumi)
             source ~/.aliases-pulumi
-            [[ -n "$CURRENT_TOOL" ]] && echo "Switched to Pulumi aliases"
+            [[ -n "$CURRENT_TOOL" ]] && echo "Activated Pulumi aliases"
             export CURRENT_TOOL="pulumi"
+            ;;
+        kubectl|k8s)
+            source ~/.aliases-kubectl
+            [[ -n "$CURRENT_TOOL" ]] && echo "Activated Kubernetes aliases"
+            export CURRENT_TOOL="kubectl"
             ;;
         none)
             export CURRENT_TOOL=""
-            echo "All IaC tool aliases unloaded"
+            echo "All tool aliases unloaded"
             ;;
         *)
             echo "Unknown tool: $tool"
-            echo "Available options: terraform, terragrunt, pulumi, none"
+            echo "Available options: terraform, terragrunt, pulumi, kubectl, none"
             return 1
             ;;
     esac
@@ -87,58 +92,6 @@ alias pl='pulumi'
 
 # Default to terraform aliases (can be changed in .bashrc if needed)
 use pulumi
-
-# Kubernetes
-alias kubectl='kubectl --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
-alias dev='k --context dev -n dev'
-alias idev='k --context idev -n dev'
-alias stage='k --context stage -n stg'
-alias testing='k --context qa'
-alias ops='k --context ops'
-alias prod='k --context prod -n prod'
-alias dr='k --context dr -n prod'
-alias bench='k --context benchmark'
-alias sand='k --context sandbox'
-alias ks='k -n kube-system'
-alias ka='k apply -f'
-alias kd='k describe'
-alias kdel='k delete -f'
-alias krm='kdel'
-alias kg='k get'
-alias kgp='kg pod'
-alias kgpy='kgp -o yaml'
-alias kgpw='kgp -w'
-alias kgpy='kgp -o yaml'
-alias kgpa='kgp -A'
-alias kgd='kg deploy'
-alias kgdy='kgd -o yaml'
-alias kgdw='kgd -w'
-alias kgsa='kg sa'
-alias kgsay='kgsa -o yaml'
-alias kgsec='kg secrets'
-alias kgsecy='kgsec -o yaml'
-alias kgpv='kg pv'
-alias kgpvc='kg pvc'
-alias kgsc='kg sc'
-alias kgn='kg nodes'
-alias kdn='kd nodes'
-alias kdpv='kd pv'
-alias kdpvc='kd pvc'
-alias kex='k exec -it'
-alias kx='kex'
-alias kl='k logs'
-alias klf='kl -f'
-alias klp='kl --previous'
-alias krr='k rollout restart'
-
-# Stern
-alias stern='stern --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE" --tail 120'
-alias plogs='stern --context prod -n prod --tail 20'
-alias slogs='stern --context stage -n stg --tail 20'
-alias dlogs='stern --context dev -n dev --tail 20'
-
-# Helm
-alias helm='helm --kube-context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
 
 # HuggingFace
 alias hf='huggingface-cli'
