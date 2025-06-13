@@ -5,6 +5,7 @@ This system allows you to switch between different sets of aliases for infrastru
 - Terraform
 - Terragrunt
 - Pulumi
+- Kubernetes
 
 ## Usage
 
@@ -20,6 +21,9 @@ use terragrunt
 # Switch to Pulumi aliases
 use pulumi
 
+# Switch to Kubernetes aliases
+use kubernetes
+
 # Disable all IaC tool-specific aliases
 use none
 ```
@@ -34,6 +38,11 @@ After switching to a specific tool, you'll have access to that tool's specific c
 - `preview` - Preview changes (Pulumi)
 - `apply` - Applies changes (Terraform/Terragrunt)
 - `up` - Deploys changes (Pulumi)
+- `k` - Shorthand for `kubectl` (Kubernetes)
+- `kg` - Get resources (Kubernetes)
+- `kd` - Describe resources (Kubernetes)
+- `kl` - Logs (Kubernetes)
+- `ke` - Exec into pods (Kubernetes)
 - etc.
 
 ## Base Commands
@@ -43,6 +52,7 @@ Regardless of which alias set is active, the following base commands are always 
 - `t` - Shorthand for `terraform`
 - `tg` - Shorthand for `terragrunt`
 - `pl` - Shorthand for `pulumi`
+- `k` - Shorthand for `kubectl`
 
 ## Default Tool
 
@@ -52,7 +62,7 @@ By default, the system loads Terraform aliases on startup. To change this behavi
 
 The system works by:
 
-1. Storing each tool's aliases in separate files (`.aliases-terraform`, `.aliases-terragrunt`, `.aliases-pulumi`)
+1. Storing each tool's aliases in separate files (`.aliases-terraform`, `.aliases-terragrunt`, `.aliases-pulumi`, `.aliases-kubernetes`)
 2. Providing a `use` function that:
    - Unaliases any potentially conflicting commands
    - Sources the appropriate alias file based on your selection
