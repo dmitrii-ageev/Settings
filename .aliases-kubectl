@@ -17,10 +17,15 @@ if command -v kubectl &> /dev/null; then
     alias krm='kdel'
     alias kg='k get'
     alias kgp='kg pod'
+    alias kgpy='kgp -o yaml'
+    alias kgpa='kgp -A'
     alias kgpw='kgp -w'
     alias kgd='kg deploy'
+    alias kgdy='kgd -o yaml'
+    alias kgda='kgd -A'
     alias kgdw='kgd -w'
     alias kgsa='kg sa'
+    alias kgsay='kgsa -o yaml'
     alias kgpv='kg pv'
     alias kgpvc='kg pvc'
     alias kgsc='kg sc'
@@ -34,6 +39,9 @@ if command -v kubectl &> /dev/null; then
     alias klf='kl -f'
     alias klp='kl --previous'
     alias krr='k rollout restart'
+    alias kgsec='kg secrets'
+    alias kgsecy='kgsec -o yaml'
+
 
     # Stern
     if command -v stern &> /dev/null; then
