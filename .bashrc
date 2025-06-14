@@ -86,8 +86,8 @@ export OSH=${HOME}/.oh-my-bash
 [[ "$OS" == "Darwin" ]] && export OSH_THEME=${OSH_THEME:-"cupcake"}
 
 #OSH_THEME="brainy"
+[[ "$LOGNAME" == "ubuntu" ]] && OSH_THEME=${OSH_THEME:-"powerline"}
 OSH_THEME=${OSH_THEME:-"agnoster"}
-[[ "$LOGNAME" == "ubuntu" ]] && OSH_THEME="powerline"
 
 [[ -n "$COMPOSER_NO_INTERACTION" ]] && unset OSH_THEME
 
