@@ -1,7 +1,7 @@
 # Pulumi aliases
 alias pl='pulumi'
 alias preview='pl preview'
-alias refresh='pl refresh'
+alias refresh='pl refresh --yes'
 alias up='pl up'
 alias apply='up --yes'
 alias stack='pl stack'
