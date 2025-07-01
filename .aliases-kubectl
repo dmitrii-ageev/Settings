@@ -17,6 +17,7 @@ if command -v kubectl &> /dev/null; then
     alias krm='kdel'
     alias kg='k get'
     alias kgp='kg pod'
+    alias kdp='kd pod'
     alias kgpy='kgp -o yaml'
     alias kgpa='kgp -A'
     alias kgpw='kgp -w'
