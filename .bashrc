@@ -434,6 +434,15 @@ if exist q; then
     [[ ! -e "${AMAZON_Q_CONFIG}" ]] && echo '{ "telemetry": false }' > "${AMAZON_Q_CONFIG}"
 fi
 
+##
+## Google SDK block
+##
+if [ -d "${HOME}/bin/google-cloud-sdk" ]; then
+    export PATH="${PATH}:${HOME}/bin/google-cloud-sdk/bin"
+    load ${HOME}/bin/google-cloud-sdk/path.bash.inc
+    load ${HOME}/bin/google-cloud-sdk/completion.bash.inc
+fi
+
 
 ##
 ## Initialise 'GitHub CLI Cliekt' - gh cli tool
@@ -457,4 +466,4 @@ stty -ixon
 # Exit with the zero code
 true
 
-export PATH="$HOME/.elan/bin:$PATH"
+
