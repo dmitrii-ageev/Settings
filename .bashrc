@@ -82,7 +82,7 @@ export OSH=${HOME}/.oh-my-bash
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-[[ "${TERM_PROGRAM}" == "vscode" ]] && export OSH_THEME=${OSH_THEME:-"demula"}
+[[ "${TERM_PROGRAM}" == "vscode" || "${TERM_PROGRAM}" == "kiro" ]] && export OSH_THEME=${OSH_THEME:-"standard"}
 [[ "$OS" == "Darwin" ]] && export OSH_THEME=${OSH_THEME:-"cupcake"}
 
 #OSH_THEME="brainy"
@@ -445,6 +445,12 @@ fi
 
 
 ##
+## Kiro IDE block
+##
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
+
+
+##
 ## Initialise 'GitHub CLI Cliekt' - gh cli tool
 ##
 exist gh && load ~/.config/gh/completion.bash.inc
@@ -465,5 +471,6 @@ stty -ixon
 
 # Exit with the zero code
 true
+
 
 
