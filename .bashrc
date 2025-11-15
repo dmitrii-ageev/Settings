@@ -74,6 +74,14 @@ init_conda_env() {
     return 0
 }
 
+# Set a Gnome Terminal Tab title
+if [ "${TERM_PROGRAM}" == "gnome" ]; then
+    alias tt='tab_title'
+    function tab_title() {
+      echo -ne "\033]0;$*\007"
+    }
+fi
+
 # Get the Operating System's name
 export OS=$(uname -s)
 
