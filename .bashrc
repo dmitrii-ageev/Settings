@@ -470,6 +470,12 @@ exist gh && load ~/.config/gh/completion.bash.inc
 [[ -d "${HOME}/bin/lean" ]] && export PATH="${PATH}:${HOME}/bin/lean/bin"
 
 
+##
+## Autocompletion for ACLI
+##
+exists acli && source <(acli completion bash)
+
+
 # Set terminal colours
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Darwin" ]] && eval $(gdircolors ~/.dir_colors)
 [[ -r ~/.dir_colors ]] && [[ "$OS" == "Linux" ]] && eval $(dircolors ~/.dir_colors)
@@ -479,6 +485,3 @@ stty -ixon
 
 # Exit with the zero code
 true
-
-
-

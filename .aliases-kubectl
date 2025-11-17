@@ -25,6 +25,7 @@ if command -v kubectl &> /dev/null; then
     alias kgdy='kgd -o yaml'
     alias kgda='kgd -A'
     alias kgdw='kgd -w'
+    alias kdd='kd deploy'
     alias kgsa='kg sa'
     alias kgsay='kgsa -o yaml'
     alias kgpv='kg pv'
@@ -42,6 +43,19 @@ if command -v kubectl &> /dev/null; then
     alias krr='k rollout restart'
     alias kgsec='kg secrets'
     alias kgsecy='kgsec -o yaml'
+    alias kgns='kg ns'
+    alias kgcm='kg cm'
+    alias kgcmy='kgcm -o yaml'
+    alias kge='kg events'
+    alias kdi='kd ingress'
+    alias kgi='kg ingress'
+    alias kgia='kg ingress -A'
+    alias kgiy='kgi -o yaml'
+    alias kds='kd service'
+    alias kgs='kg service'
+    alias kgsa='kgs -A'
+    alias kgsy='kgs -o yaml'
+    alias kgy='kg -o yaml'
 
 
     # Stern
@@ -50,10 +64,17 @@ if command -v kubectl &> /dev/null; then
         alias plogs='stern --context prod -n prod --tail 20'
         alias slogs='stern --context stage -n stg --tail 20'
         alias dlogs='stern --context dev -n dev --tail 20'
+        alias logs='stern --context "$KUBECTL_CONTEXT" -n "$KUBECTL_NAMESPACE"'
     fi
 
     # Helm
     if command -v helm &> /dev/null; then
         alias helm='helm --kube-context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
     fi
-fi 
+
+    # K9S
+    if command -v k9s &> /dev/null; then
+        alias k9s='k9s --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE" --splashless'
+    fi
+
+fi
