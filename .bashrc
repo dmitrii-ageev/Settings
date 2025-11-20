@@ -473,7 +473,7 @@ exist gh && load ~/.config/gh/completion.bash.inc
 ##
 ## Autocompletion for ACLI
 ##
-exists acli && source <(acli completion bash)
+exist acli && source <(acli completion bash)
 
 
 # Set terminal colours
