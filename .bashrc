@@ -295,13 +295,31 @@ if ! shopt -oq posix; then
   load '/usr/share/bash-completion/bash_completion'
 fi
 
-
 # Start SSH Agent on Linux
 if [ "$OS" == "Linux" ]; then
-    export SSH_AUTH_SOCK=$(find /tmp -type s -name "agent.*" 2>/dev/null | head -n 1)
-    if [ -z "$SSH_AUTH_SOCK" ]; then
-        eval "$(ssh-agent -s)"
+    SSH_ENV="$HOME/.ssh/ssh-agent.env"
+
+    # Function to start a fresh agent
+    start_agent() {
+        echo "Starting new SSH agent..."
+        ssh-agent -s > "$SSH_ENV"
+        chmod 600 "$SSH_ENV"
+        . "$SSH_ENV" > /dev/null
+    }
+
+    if [ -f "$SSH_ENV" ]; then
+        . "$SSH_ENV" > /dev/null
+        # Check if the stored agent is still alive
+        if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+            rm -f "$SSH_ENV"
+            start_agent
+        fi
+    else
+        start_agent
     fi
+
+    # Optional: auto-load keys only if none are present yet
+    # ssh-add -l >/dev/null 2>&1 || ssh-add ~/.ssh/id_ed25519
 fi
 
 #
