@@ -252,7 +252,7 @@ export GIT_SSH_COMMAND='ssh -i ${GIT_SSH_KEY} -o IdentitiesOnly=yes'
 export GPG_TTY=$(tty)
 
 # Set the path
-export PATH="${PATH}:${HOME}/bin"
+export PATH="${PATH}:${HOME}/bin:${HOME}/.local/bin"
 
 # If not running interactively, don't do anything
 case $- in
