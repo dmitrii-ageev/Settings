@@ -229,6 +229,9 @@ alias vi=${EDITOR}
 [[ "$OS" == "Darwin" ]] && export PAGER='more -r'
 [[ "$OS" == "Linux" ]] && export PAGER='more --plain'
 
+# Set sorting order for text data
+export LC_COLLATE="C"
+
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
 
