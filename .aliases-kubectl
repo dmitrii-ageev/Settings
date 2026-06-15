@@ -1,17 +1,5 @@
 # Kubernetes aliases
 if command -v kubectl &> /dev/null; then
-    # Switch kubeconfig
-    kswitch() {
-      if [ -z "$1" ]; then
-        echo "Usage: kswitch <config-name>"
-        echo "Available configs:"
-        ls ~/.kube/configs/ 2>/dev/null || echo "No configs found in ~/.kube/configs/"
-        return 1
-      fi
-      export KUBECONFIG="$HOME/.kube/configs/$1"
-      echo "Switched to: $KUBECONFIG"
-      kubectl config current-context
-    }
     # Aliases
     alias kubectl='kubectl --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
     alias dev='k --context dev -n dev'
@@ -70,6 +58,18 @@ if command -v kubectl &> /dev/null; then
     alias kgsy='kgs -o yaml'
     alias kgy='kg -o yaml'
 
+    # Switch kubeconfig
+    kswitch() {
+      if [ -z "$1" ]; then
+        echo "Usage: kswitch <config-name>"
+        echo "Available configs:"
+        ls ~/.kube/configs/ 2>/dev/null || echo "No configs found in ~/.kube/configs/"
+        return 1
+      fi
+      export KUBECONFIG="$HOME/.kube/configs/$1"
+      echo "Switched to: $KUBECONFIG"
+      kubectl config current-context
+    }
 
     # Stern
     if command -v stern &> /dev/null; then
@@ -89,5 +89,8 @@ if command -v kubectl &> /dev/null; then
     if command -v k9s &> /dev/null; then
         alias k9s='k9s --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE" --splashless'
     fi
+
+    # Krew
+    [[ -d $HOME/.krew ]] && export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 fi
