@@ -1,5 +1,18 @@
 # Kubernetes aliases
 if command -v kubectl &> /dev/null; then
+    # Switch kubeconfig
+    kswitch() {
+      if [ -z "$1" ]; then
+        echo "Usage: kswitch <config-name>"
+        echo "Available configs:"
+        ls ~/.kube/configs/ 2>/dev/null || echo "No configs found in ~/.kube/configs/"
+        return 1
+      fi
+      export KUBECONFIG="$HOME/.kube/configs/$1"
+      echo "Switched to: $KUBECONFIG"
+      kubectl config current-context
+    }
+    # Aliases
     alias kubectl='kubectl --context="$KUBECTL_CONTEXT" --namespace="$KUBECTL_NAMESPACE"'
     alias dev='k --context dev -n dev'
     alias idev='k --context idev -n dev'
