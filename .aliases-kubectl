@@ -27,6 +27,8 @@ if command -v kubectl &> /dev/null; then
     alias kgda='kgd -A'
     alias kgdw='kgd -w'
     alias kdd='kd deploy'
+    alias kgss='kg statefulsets'
+    alias kgssy='kgss -o yaml'
     alias kgsa='kg sa'
     alias kgsay='kgsa -o yaml'
     alias kgpv='kg pv'
@@ -57,18 +59,59 @@ if command -v kubectl &> /dev/null; then
     alias kgsa='kgs -A'
     alias kgsy='kgs -o yaml'
     alias kgy='kg -o yaml'
+    alias kt='k top'
+    alias ktn='kt nodes'
+    alias ktp='kt pods'
+    alias ktpc='ktp --containers'
 
-    # Switch kubeconfig
+    # ====================== KUBECTL HELPERS ======================
+    # Switch kubeconfig file
     kswitch() {
       if [ -z "$1" ]; then
         echo "Usage: kswitch <config-name>"
-        echo "Available configs:"
-        ls ~/.kube/configs/ 2>/dev/null || echo "No configs found in ~/.kube/configs/"
+        echo "Available configs in ~/.kube/configs/:"
+        ls -1 ~/.kube/configs/ 2>/dev/null || echo "No configs found."
         return 1
       fi
+
       export KUBECONFIG="$HOME/.kube/configs/$1"
-      echo "Switched to: $KUBECONFIG"
+      echo "✅ Switched kubeconfig → $KUBECONFIG"
       kubectl config current-context
+    }
+
+    # Switch context (within current kubeconfig)
+    kctx() {
+      if [ -z "$1" ]; then
+        echo "Current context: $(kubectl config current-context 2>/dev/null || echo 'None')"
+        echo "Available contexts:"
+        kubectl config get-contexts --no-headers -o name | cat -n
+        return 0
+      fi
+
+      kubectl config use-context "$1" && \
+      export KUBECTL_CONTEXT="$1" && \
+      echo "✅ Context switched to: $1"
+    }
+
+    # Switch namespace
+    kns() {
+      if [ -z "$1" ]; then
+        echo "Current namespace: ${KUBECTL_NAMESPACE:-default}"
+        echo "Available namespaces:"
+        kubectl get namespaces --no-headers -o custom-columns=NAME:.metadata.name
+        return 0
+      fi
+
+      kubectl config set-context --current --namespace="$1" && \
+      export KUBECTL_NAMESPACE="$1" && \
+      echo "✅ Namespace set to: $1"
+    }
+
+    # Optional: Show current status
+    kstatus() {
+      echo "KUBECONFIG       : ${KUBECONFIG:-$HOME/.kube/config}"
+      echo "Context          : ${KUBECTL_CONTEXT:-$(kubectl config current-context 2>/dev/null)}"
+      echo "Namespace        : ${KUBECTL_NAMESPACE:-default}"
     }
 
     # Stern
