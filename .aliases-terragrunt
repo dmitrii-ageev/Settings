@@ -31,3 +31,7 @@ alias console='tg console'
 alias output='tg output'
 alias unlock='tg force-unlock -force'
 alias clean='/bin/rm -fr .terraform .terragrunt-cache .terraform.locl.hcl terraform.tfstate* plan.out' 
+# Disable Terragrunt and Terraform telemetry
+export TG_TELEMETRY_TRACE_EXPORTER=none
+export TG_TELEMETRY_METRIC_EXPORTER=none
+export CHECKPOINT_DISABLE=1

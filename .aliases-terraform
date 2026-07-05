@@ -31,3 +31,5 @@ alias console='t console'
 alias output='t output'
 alias unlock='t force-unlock -force'
 alias clean='/bin/rm -fr .terraform .terraform.locl.hcl terraform.tfstate* plan.out' 
+# Disable Terraform telemetry
+export CHECKPOINT_DISABLE=1
